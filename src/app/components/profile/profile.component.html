@@ -1,0 +1,78 @@
+<app-header></app-header>
+
+<!-- Profile Component -->
+ <div class="container">
+    <main class="content">
+
+        <div class="py-4">
+            
+            <div class="d-flex justify-content-between w-100 flex-wrap">
+                <div class="mb-3 mb-lg-0">
+                    <h1 class="h4">Thông tin cá nhân</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card border-0 shadow components-section">
+                    <div class="card-body">     
+                        <div class="row mb-4">
+                            <div class="col-lg-4 col-sm-6">
+                                <!-- Form -->
+                                <div class="mb-4">
+                                    <label for="email">Email </label>
+                                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                                </div>
+                                <!-- End of Form -->
+                                <!-- Form -->
+                                <div class="mb-3">
+                                    <label for="exampleInputIconPassword">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="exampleInputIconPassword" aria-label="Password">
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                <!-- Form -->
+                                <div class="mb-3">
+                                    <label for="firstName">Địa chỉ</label>
+                                    <input type="text" class="form-control " id="firstName">               
+                                </div>
+                                <!-- End of Form -->
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <!-- Form -->
+                                <div class="mb-4">
+                                    <label for="usernameValidate">Họ và tên</label>
+                                    <input type="text" class="form-control" id="usernameValidate">
+                                    <!-- <div class="invalid-feedback">
+                                        Please choose a username.
+                                    </div>                -->
+                                </div>
+                                <!-- End of Form -->
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="birthday">Ngày sinh</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                                        </span>
+                                        <input data-datepicker="" class="form-control" id="birthday" type="text" placeholder="dd/mm/yyyy" required>                                               
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="role">Role</label>
+                                    <input type="text" class="form-control" id="role" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+ </div>
+
+<app-footer></app-footer>

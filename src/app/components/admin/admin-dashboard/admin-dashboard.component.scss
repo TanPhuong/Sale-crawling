@@ -1,0 +1,30 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 18%;
+    background-color: #333;
+    padding: 1rem;
+}
+
+.sidebar .nav-link {
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.sidebar .nav-link.active {
+    background-color: #555;
+    font-weight: 600;
+  }
+
+.sidebar .nav-link:hover {
+    background-color: #444;
+}
+
+.main-content {
+    margin-left: 150px;
+    padding: 1.5rem;
+}
