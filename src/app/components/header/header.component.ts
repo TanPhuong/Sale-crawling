@@ -13,6 +13,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class HeaderComponent implements OnInit {
 
   user: any;
+  currentRole: any;
   isLogin: boolean = false;
   isAdmin: boolean = false; 
 
@@ -25,10 +26,9 @@ export class HeaderComponent implements OnInit {
       if(this.IsLogin()) {
         this.isLogin = true;
         const email = this.storage.getUserInfo(); 
-        const {id, fullName, phoneNumb, role} =  this.getInfo(email);
-        if(this.checkAdmin(role.name)) {
-          this.isAdmin = true; 
-        }
+        console.log(email);
+
+        this.getInfo(email);
       }
   }
 
@@ -40,16 +40,20 @@ export class HeaderComponent implements OnInit {
   }
 
   getInfo(email: String): any {
-    this.user = this.apollo.watchQuery({
+    return this.apollo.query({
       query: GET_USER_BY_EMAIL,
-      variables: email
+      variables: { email }
+    }).subscribe((result: any) => {
+      console.log(result.data.findUserByEmail.role)
+      
+      this.user = result.data.findUserByEmail
+      this.currentRole = result.data.findUserByEmail.role.name;
+      
+      if(this.checkAdmin(this.currentRole)) {
+        this.isAdmin = true; 
+        console.log("True")
+      }
     })
-    .valueChanges.pipe(
-      map((result: any) => {
-        console.log(result.data.findUserByEmail);
-        return result.data.findUserByEmail;
-      })
-    )
   }
 
   checkAdmin(role: String): boolean {

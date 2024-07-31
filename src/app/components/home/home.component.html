@@ -1,7 +1,29 @@
 <app-header></app-header>
 
 <div class="container">
-    
+    <div class="row">
+        <div class="col-md-4" *ngFor="let product of products | async">
+            <figure class="card card-product">
+                <div class="img-wrap">
+                    <img src="{{ product.img }}">
+                </div>
+                <figcaption class="info-wrap">
+                    <h4 class="title"> {{ product.name }} </h4>
+                    <p class="desc">Sale {{ product.sale }}</p>
+                    <div class="rating-wrap">
+                        <div class="label-rating">{{ product.review }} đánh giá</div>
+                        <div class="label-rating">{{ product.sold }} đã bán </div>
+                    </div>
+                </figcaption>
+                <div class="bottom-wrap">
+                    <a href="{{ product.url }}" class="btn btn-sm btn-primary float-right">MUA NGAY</a>
+                    <div class="price-wrap h5">
+                        <span class="price-new">{{ product.price }}</span> <del class="price-old">{{ product.salePrice }}</del>
+                    </div>
+                </div>
+            </figure>
+        </div>
+    </div>
 </div>
 
 <app-footer></app-footer>

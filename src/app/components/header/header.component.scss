@@ -40,3 +40,26 @@ header {
 .navbar-nav .nav-item:last-child {
     margin-right: 0;
 }
+
+.sub-nav {
+    display: none;
+    list-style: none;
+}
+
+.sub-nav li {
+    text-decoration: none;
+}   
+
+.sub-nav li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.user-info .welcome {
+    position: relative;
+}
+
+.user-info:hover .sub-nav {
+    display: block;
+    position: absolute;
+}

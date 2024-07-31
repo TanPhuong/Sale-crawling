@@ -12,14 +12,25 @@
     </div>
     <div class="container main-content">
         <h2>Danh sách chức vụ</h2>
-        <button (click)="showFormDialog()">Thêm</button>
-        <div class="form-container" *ngIf="showForm">
+        <!-- Show form create -->
+        <button (click)="showFormDialog()" class="btn btn-primary">Thêm</button>
+        <button class="btn btn-primary">Trở lại</button>
+        <div class="container form-container" *ngIf="showForm && !showFormUpdate">
             <form class="add-role">
-                
+                <div class="modal-body">
+                    <br>
+                    <label for="newRoleName" class="modal-label">Nhập chức vụ</label>
+                    <input type="text" class="modal-input" placeholder="Enter role" [(ngModel)]="newRole"
+                     id="newRoleName" name="newRoleName">
+                    
+                    <button id="buy-tickets" (click)="submitForm(); createRole()">
+                        TẠO MỚI 
+                    </button>
+                </div>
             </form>
         </div>
 
-        <table class = "table table-striped">
+        <table class = "table table-striped" *ngIf="!showForm && !showFormUpdate">
             <thead>
                 <tr>
                     <th>Tên</th>
@@ -30,11 +41,28 @@
                 <tr *ngFor = "let role of roles | async" >
                     <td> {{ role.name }} </td>
                     <td>
-                        <button class = "btn btn-info"> Cập nhật</button>
-                        <button class = "btn btn-danger" style="margin-left: 15px"> Xóa</button>
+                        <button class = "btn btn-info" (click)="showFormUpdateDialog(); selectedRole = role"> Cập nhật</button>
+                        <button class = "btn btn-danger" style="margin-left: 15px" (click)="deleteRole(role.id)"> Xóa</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- Show form update -->
+        <div class="container form-container" *ngIf="!showForm && showFormUpdate">
+            <form class="update-role">
+                <div class="modal-body">
+                    <br>
+                    <label for="update-role" class="modal-label">Nhập chức vụ</label>
+                    <input type="text" class="modal-input form-control" placeholder="Enter role" 
+                    id="update-role" name="update-role"
+                    [(ngModel)]="selectedRole.name">
+                    
+                    <button id="buy-tickets" (click)="submitFormUpdate(); updateRole(selectedRole.name)">
+                        CHỈNH SỬA 
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

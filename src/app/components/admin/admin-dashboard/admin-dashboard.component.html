@@ -11,7 +11,27 @@
         </nav>
     </div>
     <div class="container main-content">
-        <h1>Welcome to the Main Content</h1>
-        <p>This is the main content area of the page.</p>
+        <table class = "table table-striped">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Trạng thái</th>
+                    <th>Thay đổi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let crawl of crawls | async" >
+                    <td> {{ crawl.nameUrl }} </td>
+                    <td> {{ crawl.status }}</td>
+                    <td>
+                        <button class = "btn btn-info"> Cập nhật</button>
+                        <button class = "btn btn-danger" style="margin-left: 15px"> Xóa</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" onclick="crawlingProduct()">Crawl</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

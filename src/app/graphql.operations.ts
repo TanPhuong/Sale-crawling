@@ -32,7 +32,7 @@ export const GET_USER_BY_ID = gql`
 `;
 
 export const GET_USER_BY_EMAIL = gql`
-    query($email: String) {
+    query findUserByEmail($email: String) {
         findUserByEmail(email: $email) {
             id
             fullName
@@ -66,6 +66,15 @@ export const CREATE_ROLES = gql`
     }
 `;
 
+export const UPDATE_ROLES = gql`
+    mutation updateRole($id: ID!, $name: String!) {
+        updateRole(input: { id: $id, name: $name }) {
+            id
+            name
+        }
+    }
+`;
+
 export const DELETE_ROLES = gql`
     mutation deleteRole($id: ID!) {
         deleteRole(id: $id) {
@@ -90,7 +99,7 @@ export const GET_CRAWL = gql`
     query {
         findAllCrawl {
             id
-            name
+            nameUrl
             status
         }
     }
@@ -105,9 +114,11 @@ export const GET_PRODUCT = gql`
             name
             price
             discount
-            sale
+            salePrice
             url
             image
+            review
+            sold
         }
     }
 `;

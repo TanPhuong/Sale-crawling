@@ -28,3 +28,129 @@
     margin-left: 150px;
     padding: 1.5rem;
 }
+
+// Modal 
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-container {
+    background-color: #fff; 
+    width: 900px; 
+    min-height: 200px;
+    max-width: calc(100% - 32px); 
+    position: relative;
+    animation: modalFadeIn ease 0.5s;
+}
+
+.modal-container .modal-header {
+    background-color: #009688;
+    height: 130px; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-size: 30px; 
+    color: #fff; 
+    letter-spacing: 4px;
+    font-style: bold;
+}
+
+.modal .modal-heading-icon {
+    margin-right: 16px; 
+}
+
+.modal .modal-close {
+    position: absolute;
+    right: 0;
+    color: #fff; 
+    padding: 12px; 
+    cursor: pointer;    
+}
+
+.modal .modal-close:hover {
+    background-color: #ccc;
+    color: black; 
+}
+
+.modal-container .modal-body {
+    padding: 16px; 
+}
+
+.modal-body .modal-label {
+    display: block;
+    margin-bottom: 15px; 
+}
+
+.modal-body .modal-input {
+    border: 1px solid #ccc;
+    width: 100%; 
+    margin-bottom: 15px; 
+    padding: 8px; 
+}
+
+#buy-tickets {
+    display: block; 
+    width: 100%; 
+    padding: 16px; 
+    background-color: #009688;
+    color: #fff; 
+    border: none; 
+    font-weight: 700;
+    font-size: 17px;
+}
+
+#buy-tickets:hover {
+    cursor: pointer; 
+    background-color: #ccc;
+    color: black;
+}
+
+.modal-container .modal-footer {
+    padding: 16px; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-footer-close {
+    padding: 8px 16px; 
+    background-color: #F44336;
+    color: #fff; 
+    border: none; 
+    font-size: 17px;
+}
+
+.modal-footer-close:hover {
+    background-color: #ccc;
+    color: black; 
+    cursor: pointer;
+}
+
+.modal-footer .modal-help a {
+    color: #2196F3;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

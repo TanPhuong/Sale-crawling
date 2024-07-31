@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { map } from 'rxjs';
 import { RoleDTO } from 'src/app/dtos/role.dto';
-import { GET_ROLES, GET_ROLE_BY_ID } from 'src/app/graphql.operations';
+import { CREATE_ROLES, DELETE_ROLES, GET_ROLES, GET_ROLE_BY_ID, UPDATE_ROLES } from 'src/app/graphql.operations';
 
 
 @Component({
@@ -13,12 +13,15 @@ import { GET_ROLES, GET_ROLE_BY_ID } from 'src/app/graphql.operations';
 export class AdminRoleComponent implements OnInit {
     roles: any;
     showForm: boolean = false; 
+    showFormUpdate: boolean = false;
+    selectedRole: any;
+
+    newRole: any; 
 
     constructor(private apollo: Apollo) {}
 
     ngOnInit(): void {
       this.getRole();
-      // this.getRoleByID(id);
     }
 
     getRole(): void {
@@ -48,11 +51,58 @@ export class AdminRoleComponent implements OnInit {
       )
     }
 
+    createRole(): void {
+      this.apollo.mutate({
+        mutation: CREATE_ROLES,
+        refetchQueries: [{ query: GET_ROLES }],
+        variables: {
+          name: this.newRole
+        }
+      }).subscribe(() => {
+        console.log("Tạo mới thành công")
+        alert("Tạo mới thành công")
+      })
+    }
+
+    updateRole(name: String): void {
+      this.apollo.mutate({
+        mutation: UPDATE_ROLES,
+        refetchQueries: [{ query: GET_ROLES }],
+        variables: {
+          name: name
+        }
+      }).subscribe(() => {
+        console.log("Cập nhật thành công")
+        alert("Cập nhật thành công")
+      })
+    }
+
+    deleteRole(id: any): void {
+        this.apollo.mutate({
+          mutation: DELETE_ROLES,
+          refetchQueries: [{ query: GET_ROLES }],
+          variables: {
+            id: id
+          }
+        }).subscribe(() => {
+          console.log("Xóa thành công")
+          alert("Xóa thành công")
+        })
+    }
+
     showFormDialog() {
       this.showForm = true;
     }
 
     submitForm() {
       this.showForm = false;
+    }
+
+    showFormUpdateDialog() {
+      this.showFormUpdate = true;
+    }
+
+    submitFormUpdate() {
+      this.showFormUpdate = false;
     }
 }

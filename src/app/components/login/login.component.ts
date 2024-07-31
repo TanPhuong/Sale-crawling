@@ -36,12 +36,13 @@ export class LoginComponent implements OnInit{
 
     const { email, password } = this.form;
 
-    const loginDTO : LoginDTO = { email, password};
+    const loginDTO : LoginDTO = { email, password };
     // console.log(loginDTO);
     this.userService.login(loginDTO).subscribe({
       next: (response : any) => {
         this.tokenService.setToken(response.token);
         this.storageService.setUserInfo(response.user.email);
+        
         console.log(this.storageService.getUserInfo());
         this.router.navigate(['']);
       },

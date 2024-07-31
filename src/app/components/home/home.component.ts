@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
-import { GET_USER_BY_EMAIL } from 'src/app/graphql.operations';
+import { GET_PRODUCT, GET_USER_BY_EMAIL } from 'src/app/graphql.operations';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -12,24 +12,29 @@ import { StorageService } from 'src/app/services/storage.service';
 export class HomeComponent implements OnInit{
 
   user: any
+  products: any
 
   constructor(private apollo: Apollo, private storageService: StorageService) {}
 
   ngOnInit(): void {
-      this.getUserByEmail();
+      this.getProduct();
   }
 
-  getUserByEmail(): void {
-    this.user = this.apollo.watchQuery({
-      query: GET_USER_BY_EMAIL,
-      variables: this.storageService.getUserInfo(),
+
+  getProduct(): void {
+    this.products = this.apollo.watchQuery({
+      query: GET_PRODUCT,
       fetchPolicy: 'cache-and-network'
     })
     .valueChanges.pipe(
       map((result: any) => {
-        console.log(result.data.findUserByEmail);
-        return result.data.findUserByEmail;
+        console.log(result.data.getProduct);
+        return result.data.getProduct;
       })
     )
+  }
+
+  createOrder(): void {
+    
   }
 }
