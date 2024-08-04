@@ -119,6 +119,39 @@ export const GET_PRODUCT = gql`
             image
             review
             sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
         }
     }
 `;
+
+export const PRIORITIZE_PRODUCT = gql`
+    query {
+        prioritizeProduct {
+            id
+            name
+            price
+            discount
+            salePrice
+            url
+            image
+            review
+            sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
+
+// task
+export const CREATE_TASK = gql`
+    mutation createTasks($productInput: ProductInput!, $userInput: UserInput!){
+        createTasks(productInput: $productInput, userInput: $userInput)
+    }
+`

@@ -1,20 +1,19 @@
 <!-- Admin Role Component -->
 <div class="d-flex">
     <div class="sidebar">
-        <h3 class="text-white mb-3">Trang chủ</h3>
+        <h3 class="text-white mb-3" href="/home">Trang chủ</h3>
         <nav class="nav flex-column">
-            <a class="nav-link" href="/admin-dashboard">Dasboard</a>
+            <a class="nav-link active" href="/admin-dashboard">Dasboard</a>
             <a class="nav-link" href="/admin-user">Người dùng</a>
-            <a class="nav-link active" href="/admin-role">Chức vụ</a>
-            <a class="nav-link" href="#">Đơn hàng</a>
-            <a class="nav-link" href="#">Sản phẩm</a>
+            <a class="nav-link" href="/admin-role">Chức vụ</a>
+            <a class="nav-link" href="/admin-order">Đơn hàng</a>
         </nav>
     </div>
     <div class="container main-content">
         <h2>Danh sách chức vụ</h2>
         <!-- Show form create -->
         <button (click)="showFormDialog()" class="btn btn-primary">Thêm</button>
-        <button class="btn btn-primary">Trở lại</button>
+        <button class="btn btn-primary" *ngIf="showForm || showFormUpdate">Trở lại</button>
         <div class="container form-container" *ngIf="showForm && !showFormUpdate">
             <form class="add-role">
                 <div class="modal-body">

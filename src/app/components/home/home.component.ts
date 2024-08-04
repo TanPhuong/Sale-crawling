@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
-import { GET_PRODUCT, GET_USER_BY_EMAIL } from 'src/app/graphql.operations';
+import { CREATE_TASK, GET_PRODUCT, GET_USER_BY_EMAIL, PRIORITIZE_PRODUCT } from 'src/app/graphql.operations';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -18,23 +18,40 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
       this.getProduct();
+      this.getUser();
   }
 
+  getUser(): void {
+    const email = this.storageService.getUserInfo(); 
+
+    this.apollo.query({
+      query: GET_USER_BY_EMAIL,
+      variables: { email }
+    }).subscribe((result: any) => {
+      this.user = result.data.findUserByEmail
+    })
+  }
 
   getProduct(): void {
     this.products = this.apollo.watchQuery({
-      query: GET_PRODUCT,
+      query: PRIORITIZE_PRODUCT,
       fetchPolicy: 'cache-and-network'
     })
     .valueChanges.pipe(
       map((result: any) => {
-        console.log(result.data.getProduct);
-        return result.data.getProduct;
+        console.log(result);
+        return result.data.prioritizeProduct;
       })
     )
   }
 
-  createOrder(): void {
-    
+  createOrder(productInput: any): void {
+    this.apollo.mutate({
+      mutation: CREATE_TASK,
+      variables: {
+        productInput: productInput,
+        userInput: this.user
+      }
+    })
   }
 }

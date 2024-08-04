@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminRoleComponent } from './components/admin/admin-role/admin-role.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { GraphQLModule } from './graphql.module';
+import { AdminOrderComponent } from './components/admin/admin-order/admin-order.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { GraphQLModule } from './graphql.module';
     AdminUserComponent,
     ProfileComponent,
     AdminRoleComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminOrderComponent
   ],
   imports: [
     BrowserModule,
