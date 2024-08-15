@@ -5,6 +5,7 @@ import { LoginDTO } from "../dtos/login.dto";
 import { environment } from "../environmens/environment";
 import { RegisterDTO } from "../dtos/register.dto";
 import { HttpUtilService } from "./http.util.service";
+import { OrderDTO } from "../dtos/order.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,7 @@ export class UserService {
 
     private apiLogin = `${environment.apiBaseUrl}/api/v1/users/login`;
     private apiRegister = `${environment.apiBaseUrl}/api/v1/users/register`;
+    private apiCreateOrder = `${environment.apiBaseUrl}/api/v1/orders/create-order`;
     constructor(private http: HttpClient, private httpUtilService: HttpUtilService) { }
 
     private apiConfig = {
@@ -27,4 +29,7 @@ export class UserService {
         return this.http.post(this.apiRegister, registerDTO, this.apiConfig);
     }
 
+    createOrder(orderDTO: OrderDTO): Observable<any> {
+        return this.http.post(this.apiCreateOrder, orderDTO, this.apiConfig);
+    }
 }

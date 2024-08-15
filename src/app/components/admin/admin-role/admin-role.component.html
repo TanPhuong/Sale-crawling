@@ -1,22 +1,27 @@
 <!-- Admin Role Component -->
 <div class="d-flex">
     <div class="sidebar">
-        <h3 class="text-white mb-3" href="/home">Trang chủ</h3>
+        <h3 class="text-white mb-3" href="/home">Quản lý</h3>
         <nav class="nav flex-column">
-            <a class="nav-link active" href="/admin-dashboard">Dasboard</a>
+            <a class="nav-link" href="/home">Trang chủ</a>
+            <a class="nav-link" href="/admin-dashboard">Dashboard</a>
             <a class="nav-link" href="/admin-user">Người dùng</a>
-            <a class="nav-link" href="/admin-role">Chức vụ</a>
+            <a class="nav-link active" href="/admin-role">Chức vụ</a>
             <a class="nav-link" href="/admin-order">Đơn hàng</a>
         </nav>
     </div>
     <div class="container main-content">
         <h2>Danh sách chức vụ</h2>
         <!-- Show form create -->
-        <button (click)="showFormDialog()" class="btn btn-primary">Thêm</button>
-        <button class="btn btn-primary" *ngIf="showForm || showFormUpdate">Trở lại</button>
+        <button (click)="showFormDialog()" class="btn btn-primary" *ngIf="button">Thêm</button>
+        <button  (click)="submitForm()" class="btn btn-primary" *ngIf="showForm || showFormUpdate">Trở lại</button>
         <div class="container form-container" *ngIf="showForm && !showFormUpdate">
             <form class="add-role">
                 <div class="modal-body">
+                    <label for="newRoleId" class="modal-label">Nhập số ID</label>
+                    <input type="text" class="modal-input" placeholder="Enter role ID" [(ngModel)]="newRoleId"
+                     id="newRoleId" name="newRoleId">
+                    
                     <br>
                     <label for="newRoleName" class="modal-label">Nhập chức vụ</label>
                     <input type="text" class="modal-input" placeholder="Enter role" [(ngModel)]="newRole"
@@ -38,7 +43,8 @@
             </thead>
             <tbody>
                 <tr *ngFor = "let role of roles | async" >
-                    <td> {{ role.name }} </td>
+                    <td>{{ role.id }}</td>
+                    <td> {{ role.name }} </td>  
                     <td>
                         <button class = "btn btn-info" (click)="showFormUpdateDialog(); selectedRole = role"> Cập nhật</button>
                         <button class = "btn btn-danger" style="margin-left: 15px" (click)="deleteRole(role.id)"> Xóa</button>
@@ -50,14 +56,14 @@
         <!-- Show form update -->
         <div class="container form-container" *ngIf="!showForm && showFormUpdate">
             <form class="update-role">
-                <div class="modal-body">
+                <div class="modal-body" style="margin: 20px;">
                     <br>
                     <label for="update-role" class="modal-label">Nhập chức vụ</label>
                     <input type="text" class="modal-input form-control" placeholder="Enter role" 
                     id="update-role" name="update-role"
                     [(ngModel)]="selectedRole.name">
                     
-                    <button id="buy-tickets" (click)="submitFormUpdate(); updateRole(selectedRole.name)">
+                    <button id="buy-tickets" (click)="submitFormUpdate(); updateRole(selectedRole.id, selectedRole.name)">
                         CHỈNH SỬA 
                     </button>
                 </div>

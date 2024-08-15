@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
 import { GET_USER_BY_EMAIL } from 'src/app/graphql.operations';
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
   showUserMenu: boolean = false;
   showAdminMenu: boolean = false;
 
-  constructor(private token: TokenService, private storage: StorageService, private apollo: Apollo) {}
+  constructor(private router: Router, private token: TokenService, private storage: StorageService, private apollo: Apollo) {}
 
   ngOnInit(): void {
       if(this.IsLogin()) {
@@ -61,6 +62,11 @@ export class HeaderComponent implements OnInit {
       return true;
     } 
     return false;
+  }
+
+  logOut(): void {
+    this.token.removeToken();
+    this.router.navigate(['login']);
   }
 
 }

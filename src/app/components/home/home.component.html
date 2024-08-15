@@ -9,18 +9,19 @@
                 </div>
                 <figcaption class="info-wrap">
                     <h4 class="title"> {{ product.name }} </h4>
-                    <p class="desc">Giảm giá {{ product.discount }}%</p>
+                    <p class="desc" style="color: red;">Giảm giá {{ product.discount }}%</p>
                     <div class="rating-wrap">
-                        <div class="label-rating">{{ product.review }} đánh giá</div>
-                        <div class="label-rating">{{ product.sold }} đã bán </div>
+                        <div class="label-rating" *ngIf="product.review > 0">{{ product.review }} đánh giá</div>
+                        <div class="label-rating" style="font-weight: bold;" *ngIf="product.sold > 0">{{ product.sold }} đã bán </div>
                     </div>
                 </figcaption>
                 <div class="bottom-wrap">
                     <div class="price-wrap h5">
-                        <span class="price-new" style="color: red;">{{ product.salePrice | currency:'VND' : 'symbol':'1.0-0'}} </span>
-                        <del class="price-old"> {{ product.price | currency:'VND' : 'symbol':'1.0-0'}}</del>
+                        <span class="price-new" style="color: red;">{{ product.salePrice | currency:'VND' : 'symbol':'1.0-0'}}</span>
+                        <del class="price-old" style="margin-left: 20px; font-size: 16px;">
+                            {{ product.price | currency:'VND' : 'symbol':'1.0-0'}}</del>
                     </div>
-                    <a href="{{ product.url }}" target="_blank" 
+                    <a href="https://tiki.vn/checkout/payment" target="_blank" style="padding: 10px 20px; margin: 10px 0;" 
                     class="btn btn-sm btn-primary float-right" (click)="createOrder(product)">MUA NGAY</a>
                 </div>
             </figure>

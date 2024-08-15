@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
-import { GET_CRAWL, GET_PRODUCT } from 'src/app/graphql.operations';
+import { GET_CRAWL, GET_KEYWORD, GET_PRODUCT } from 'src/app/graphql.operations';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,12 +10,13 @@ import { GET_CRAWL, GET_PRODUCT } from 'src/app/graphql.operations';
 })
 export class AdminDashboardComponent implements OnInit {
   crawls: any;
-  products: any;
+  keywords: any;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {
       this.getCrawl();
+      this.getKeyword();
   }
 
   getCrawl(): void {
@@ -32,15 +33,36 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   crawlingProduct(): void {
-    this.products = this.apollo.watchQuery({
+    console.log('Processing...')
+    this.apollo.watchQuery({
       query: GET_PRODUCT,
-      fetchPolicy: 'cache-and-network'
+      fetchPolicy: 'network-only'
     })
     .valueChanges.pipe(
       map((result: any) => {
         console.log(result.data.findAllProduct);
         return result.data.findAllProduct;
       })
-    ) 
+    ).subscribe({
+      next: (products) => {
+        console.log('Products:', products);
+      },
+      error: (err) => {
+        console.error('Error fetching products:', err);
+      }
+    }); 
+  }
+
+  getKeyword(): void {
+    this.keywords = this.apollo.watchQuery({
+      query: GET_KEYWORD,
+      fetchPolicy: 'cache-and-network'
+    })
+    .valueChanges.pipe(
+      map((result: any) => {
+        console.log(result.data.findAllKeyword);
+        return result.data.findAllKeyword;
+      })
+    )
   }
 }

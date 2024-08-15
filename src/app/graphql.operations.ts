@@ -68,7 +68,7 @@ export const CREATE_ROLES = gql`
 
 export const UPDATE_ROLES = gql`
     mutation updateRole($id: ID!, $name: String!) {
-        updateRole(input: { id: $id, name: $name }) {
+        updateRole(id: $id, roleInput: { id: $id, name: $name }) {
             id
             name
         }
@@ -91,7 +91,6 @@ export const GET_ROLE_BY_ID = gql`
         }
     }
 `;
-
 
 
 // Crawl web
@@ -149,9 +148,36 @@ export const PRIORITIZE_PRODUCT = gql`
     }
 `;
 
+
+
 // task
 export const CREATE_TASK = gql`
-    mutation createTasks($productInput: ProductInput!, $userInput: UserInput!){
+    mutation createTasks($productInput: ProductInput, $userInput: UserInput){
         createTasks(productInput: $productInput, userInput: $userInput)
     }
 `
+
+// keyword
+export const GET_KEYWORD = gql`
+    query {
+        findAllKeyword{
+            id
+            keyword_sale_url
+            keyword_wrapper
+            keyword_uptime
+            keyword_title
+            keyword_image
+            keyword_price
+            keyword_discount
+            keyword_sale
+            keyword_product
+            keyword_review
+            keyword_sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;

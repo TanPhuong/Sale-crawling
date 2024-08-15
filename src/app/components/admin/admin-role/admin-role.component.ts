@@ -14,9 +14,11 @@ export class AdminRoleComponent implements OnInit {
     roles: any;
     showForm: boolean = false; 
     showFormUpdate: boolean = false;
+    button: boolean = true;
     selectedRole: any;
 
     newRole: any; 
+    newRoleId: any;
 
     constructor(private apollo: Apollo) {}
 
@@ -56,6 +58,7 @@ export class AdminRoleComponent implements OnInit {
         mutation: CREATE_ROLES,
         refetchQueries: [{ query: GET_ROLES }],
         variables: {
+          id: this.newRoleId,
           name: this.newRole
         }
       }).subscribe(() => {
@@ -64,11 +67,12 @@ export class AdminRoleComponent implements OnInit {
       })
     }
 
-    updateRole(name: String): void {
+    updateRole(id: any, name: String): void {
       this.apollo.mutate({
         mutation: UPDATE_ROLES,
         refetchQueries: [{ query: GET_ROLES }],
         variables: {
+          id: id,
           name: name
         }
       }).subscribe(() => {
@@ -77,29 +81,32 @@ export class AdminRoleComponent implements OnInit {
       })
     }
 
-    deleteRole(id: any): void {
+    deleteRole(idInput: any)  {
         this.apollo.mutate({
           mutation: DELETE_ROLES,
           refetchQueries: [{ query: GET_ROLES }],
           variables: {
-            id: id
+            id: idInput
           }
         }).subscribe(() => {
           console.log("Xóa thành công")
-          alert("Xóa thành công")
         })
     }
 
     showFormDialog() {
       this.showForm = true;
+      this.button = false;
     }
 
     submitForm() {
       this.showForm = false;
+      this.showFormUpdate = false;
+      this.button = true;
     }
 
     showFormUpdateDialog() {
       this.showFormUpdate = true;
+      this.button = false;
     }
 
     submitFormUpdate() {

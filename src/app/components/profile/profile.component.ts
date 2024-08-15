@@ -17,19 +17,19 @@ export class ProfileComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.getUserByEmail();
+    const email = this.storageService.getUserInfo();
+    this.getUserByEmail(email);
   }
 
-  getUserByEmail(): void {
-    this.user = this.apollo.watchQuery({
+  getUserByEmail(email: String): any {
+    return this.apollo.query({
       query: GET_USER_BY_EMAIL,
-      variables: this.storageService.getUserInfo(),
+      variables: { email },
     })
-    .valueChanges.pipe(
-      map((result: any) => {
-        console.log(result.data.findUserByEmail);
-        return result.data.findUserByEmail;
-      })
-    )
+    .subscribe((result: any) => {
+      console.log(result.data.findUserByEmail)
+      
+      this.user = result.data.findUserByEmail
+    })
   }
 }

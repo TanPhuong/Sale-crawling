@@ -1,9 +1,10 @@
 <!-- Admin Dashboard Component -->
 <div class="d-flex">
     <div class="sidebar">
-        <h3 class="text-white mb-3" href="/home">Trang chủ</h3>
+        <h3 class="text-white mb-3">Quản lý</h3>
         <nav class="nav flex-column">
-            <a class="nav-link active" href="/admin-dashboard">Dasboard</a>
+            <a class="nav-link" href="/home">Trang chủ</a>
+            <a class="nav-link active" href="/admin-dashboard">Dashboard</a>
             <a class="nav-link" href="/admin-user">Người dùng</a>
             <a class="nav-link" href="/admin-role">Chức vụ</a>
             <a class="nav-link" href="/admin-order">Đơn hàng</a>
@@ -11,6 +12,7 @@
     </div>
     <div class="container main-content">
         <table class = "table table-striped">
+            <h3>Danh sách web crawl</h3>
             <thead>
                 <tr>
                     <th>Tên</th>
@@ -23,14 +25,97 @@
                     <td> {{ crawl.nameUrl }} </td>
                     <td> {{ crawl.status }}</td>
                     <td>
-                        <button class = "btn btn-info">Cập nhật</button>
+                        <button class="btn btn-primary">Cấu hình</button>
+                        <button class="btn btn-info" style="margin-left: 15px">Tái cấu hình</button>
+                        <button class = "btn btn-info" style="margin-left: 15px">Cập nhật</button>
                         <button class = "btn btn-danger" style="margin-left: 15px"> Xóa</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-success" onclick="crawlingProduct()">Crawl</button>
                     </td>
                 </tr>
             </tbody>
+            <br>    
+            <h3>Cấu hình của trang crawl</h3>
+            <!-- <tbody>
+                <tr class="row" *ngFor="let keyword of keywords | async" >
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="mb-4">
+                            <label for="keyword-crawl">Trang crawl</label>
+                            <input type="text" class="form-control" id="keyword-crawl" value="{{ keyword.crawl.nameUrl }}" 
+                            aria-describedby="emailHelp" readonly>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-flash-sale">Keyword của trang flash sale</label>
+                            <input type="text" class="form-control" id="keyword-flash-sale" value="{{ keyword.keyword_sale_url }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-wrapper">Keyword của wrapper sản phẩm</label>
+                            <input type="text" class="form-control" id="keyword-wrapper" value="{{ keyword.keyword_wrapper }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-sale-time">Keyword mốc thời gian sale</label>
+                            <input type="text" class="form-control" id="keyword-sale-time" value="{{ keyword.keyword_uptime }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="mb-4">
+                            <label for="keyword-title">Keyword tên sản phẩm</label>
+                            <input type="text" class="form-control" id="keyword-title" value="{{ keyword.keyword_title }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-image">Keyword hình ảnh sản phẩm</label>
+                            <input type="text" class="form-control" id="keyword-image" value="{{ keyword.keyword_image }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-price">Keyword giá gốc sản phẩm</label>
+                            <input type="text" class="form-control" id="keyword-price" value="{{ keyword.keyword_price }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-discount">Keyword % sale sản phẩm</label>
+                            <input type="text" class="form-control" id="keyword-discount" value="{{ keyword.keyword_discount }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="mb-4">
+                            <label for="keyword-sale">Keyword giá khi sale</label>
+                            <input type="text" class="form-control" id="keyword-sale" value="{{ keyword.keyword_sale }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-product">Keyword url trang sản phẩm</label>
+                            <input type="text" class="form-control" id="keyword-product" value="{{ keyword.keyword_product }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-review">Keyword lượng review</label>
+                            <input type="text" class="form-control" id="keyword-review" value="{{ keyword.keyword_review }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="keyword-sold">Keyword lượng bán</label>
+                            <input type="text" class="form-control" id="keyword-sold" value="{{ keyword.keyword_sold }}" 
+                            aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                </tr>
+            </tbody> -->
         </table>
+        <button class="btn btn-info" (click)="crawlingProduct()">Crawl</button>
     </div>
 </div>
