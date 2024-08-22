@@ -6,13 +6,11 @@
             <a class="nav-link" href="/home">Trang chủ</a>
             <a class="nav-link active" href="/admin-dashboard">Dashboard</a>
             <a class="nav-link" href="/admin-user">Người dùng</a>
-            <a class="nav-link" href="/admin-role">Chức vụ</a>
-            <a class="nav-link" href="/admin-order">Đơn hàng</a>
         </nav>
     </div>
     <div class="container main-content">
+        <h3>Danh sách web crawl</h3>
         <table class = "table table-striped">
-            <h3>Danh sách web crawl</h3>
             <thead>
                 <tr>
                     <th>Tên</th>
@@ -23,18 +21,21 @@
             <tbody>
                 <tr *ngFor = "let crawl of crawls | async" >
                     <td> {{ crawl.nameUrl }} </td>
-                    <td> {{ crawl.status }}</td>
-                    <td>
-                        <button class="btn btn-primary">Cấu hình</button>
-                        <button class="btn btn-info" style="margin-left: 15px">Tái cấu hình</button>
-                        <button class = "btn btn-info" style="margin-left: 15px">Cập nhật</button>
-                        <button class = "btn btn-danger" style="margin-left: 15px"> Xóa</button>
+                    <td style="width: 20%;"> {{ crawl.status }}</td>
+                    <td style="width: 60%;">
+                        <button class="btn btn-primary" (click)="config(crawl)">Cấu hình</button>
+                        <button class="btn btn-info" style="margin-left: 15px" (click)="reConfig(crawl)">Tái cấu hình</button>
+                        <button class = "btn btn-success" style="margin-left: 15px">Cập nhật</button>
+                        <!-- <button class = "btn btn-danger" style="margin-left: 15px"> Xóa</button> -->
                     </td>
                 </tr>
             </tbody>
             <br>    
+        </table>
+
+        <table class="table table-striped">
             <h3>Cấu hình của trang crawl</h3>
-            <!-- <tbody>
+            <tbody>
                 <tr class="row" *ngFor="let keyword of keywords | async" >
                     <div class="col-lg-4 col-sm-6">
                         <div class="mb-4">
@@ -114,7 +115,7 @@
                         </div>
                     </div>
                 </tr>
-            </tbody> -->
+            </tbody>
         </table>
         <button class="btn btn-info" (click)="crawlingProduct()">Crawl</button>
     </div>

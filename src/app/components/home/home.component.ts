@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
 import { OrderDTO } from 'src/app/dtos/order.dto';
-import { CREATE_TASK, GET_PRODUCT, GET_USER_BY_EMAIL, PRIORITIZE_PRODUCT } from 'src/app/graphql.operations';
+import { ALL_PRODUCT, CREATE_TASK, GET_PRODUCT, GET_PRODUCT_BY_DISCOUNT, GET_PRODUCT_BY_PRICE, GET_USER_BY_EMAIL, PRIORITIZE_PRODUCT, REALTIME_CRAWLING } from 'src/app/graphql.operations';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
+import { WebSocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-home',
@@ -14,15 +15,44 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit{
 
-  user: any
-  products: any
+  user: any;
+  products: any;
+  orderData: any;
+  checkOutURL: any;
+
 
   constructor(private apollo: Apollo, private storageService: StorageService, 
-    private router: Router, private userService: UserService) {}
+    private router: Router, private userService: UserService, private webSocket: WebSocketService) {}
 
-  ngOnInit(): void {
-      this.getProduct();
-      this.getUser();
+  ngOnInit(): void { 
+    
+    this.crawlProduct();
+    this.realtimeCrawling();
+
+    this.getUser();
+    
+
+    this.webSocket.onEvent().subscribe({
+      next: (message) => {
+        console.log('Received message: ' + message.body);
+        this.getProduct();
+      },
+      error: (err) => {
+        console.error('Error message: ' + err);
+      }
+    })
+  }
+
+  setByPrice(): void {
+    this.productByPrice();
+  }
+
+  setByDiscount(): void {
+    this.productByDiscount()
+  }
+
+  setBySold(): void {
+    this.findProduct()
   }
 
   getUser(): void {
@@ -38,6 +68,32 @@ export class HomeComponent implements OnInit{
 
   getProduct(): void {
     this.products = this.apollo.watchQuery({
+      query: ALL_PRODUCT,
+      fetchPolicy: 'cache-and-network'
+    })
+    .valueChanges.pipe(
+      map((result: any) => {
+        console.log(result);
+        return result.data.getAllProduct;
+      })
+    )
+  }
+
+  crawlProduct(): void {
+    this.products = this.apollo.watchQuery({
+      query: GET_PRODUCT,
+      fetchPolicy: 'cache-and-network'
+    })
+    .valueChanges.pipe(
+      map((result: any) => {
+        console.log(result);
+        return result.data.findAllProduct;
+      })
+    )
+  }
+
+  findProduct(): void {
+    this.products = this.apollo.watchQuery({
       query: PRIORITIZE_PRODUCT,
       fetchPolicy: 'cache-and-network'
     })
@@ -45,6 +101,44 @@ export class HomeComponent implements OnInit{
       map((result: any) => {
         console.log(result);
         return result.data.prioritizeProduct;
+      })
+    )
+  }
+
+  realtimeCrawling(): void {
+    this.apollo.watchQuery({
+      query: REALTIME_CRAWLING
+    })
+    .valueChanges.pipe(
+      map((result: any) => {
+        console.log(result);
+        return result.data.realTimeCrawl;
+      })
+    )
+  }
+
+  productByPrice(): void {
+    this.products = this.apollo.watchQuery({
+      query: GET_PRODUCT_BY_PRICE,
+      fetchPolicy: 'cache-and-network'
+    })
+    .valueChanges.pipe(
+      map((result: any) => {
+        console.log(result);
+        return result.data.findProductByPriceDESC;
+      })
+    )
+  }
+
+  productByDiscount(): void {
+    this.products = this.apollo.watchQuery({
+      query: GET_PRODUCT_BY_DISCOUNT,
+      fetchPolicy: 'cache-and-network'
+    })
+    .valueChanges.pipe(
+      map((result: any) => {
+        console.log(result);
+        return result.data.findProductByDiscount;
       })
     )
   }
@@ -59,9 +153,12 @@ export class HomeComponent implements OnInit{
     this.userService.createOrder(order).subscribe({
       next: (response: any) => {
         console.log(response)
+        this.orderData = response.add_to_cart;
+
+        window.location.href = `https://tiki.vn/checkout/buy-now?data=${ this.orderData }`;
       },
       error(err: any) {
-        console.log(err.error.message);
+        console.error(err);
       }
     })
   }

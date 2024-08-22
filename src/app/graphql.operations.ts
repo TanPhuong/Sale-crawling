@@ -104,8 +104,29 @@ export const GET_CRAWL = gql`
     }
 `;
 
-
 // Product 
+export const ALL_PRODUCT = gql`
+    query {
+        getAllProduct {
+            id
+            name
+            price
+            discount
+            salePrice
+            url
+            image
+            review
+            sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
+
+
 export const GET_PRODUCT = gql`
     query {
         findAllProduct {
@@ -148,7 +169,68 @@ export const PRIORITIZE_PRODUCT = gql`
     }
 `;
 
+export const REALTIME_CRAWLING = gql`
+    query {
+        realTimeCrawl {
+            id
+            name
+            price
+            discount
+            salePrice
+            url
+            image
+            review
+            sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
 
+export const GET_PRODUCT_BY_PRICE = gql`
+    query {
+        findProductByPriceDESC {
+            id
+            name
+            price
+            discount
+            salePrice
+            url
+            image
+            review
+            sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
+
+export const GET_PRODUCT_BY_DISCOUNT = gql`
+    query {
+        findProductByDiscount {
+            id
+            name
+            price
+            discount
+            salePrice
+            url
+            image
+            review
+            sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
 
 // task
 export const CREATE_TASK = gql`
@@ -161,6 +243,54 @@ export const CREATE_TASK = gql`
 export const GET_KEYWORD = gql`
     query {
         findAllKeyword{
+            id
+            keyword_sale_url
+            keyword_wrapper
+            keyword_uptime
+            keyword_title
+            keyword_image
+            keyword_price
+            keyword_discount
+            keyword_sale
+            keyword_product
+            keyword_review
+            keyword_sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
+
+export  const GET_KEYWORD_BY_CRAWL = gql`
+    query findKeywordByCrawl($input: crawlInput){
+        findKeywordByCrawl(input: $input) {
+            id
+            keyword_sale_url
+            keyword_wrapper
+            keyword_uptime
+            keyword_title
+            keyword_image
+            keyword_price
+            keyword_discount
+            keyword_sale
+            keyword_product
+            keyword_review
+            keyword_sold
+            crawl {
+                id
+                nameUrl
+                status
+            }
+        }
+    }
+`;
+
+export const RE_CONFIG_KEYWORD = gql`
+    query reConfigKeyword($input: crawlInput){
+        reConfigKeyword(input: $input) {
             id
             keyword_sale_url
             keyword_wrapper

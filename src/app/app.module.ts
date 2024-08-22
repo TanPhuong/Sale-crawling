@@ -16,6 +16,7 @@ import { AdminRoleComponent } from './components/admin/admin-role/admin-role.com
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { GraphQLModule } from './graphql.module';
 import { AdminOrderComponent } from './components/admin/admin-order/admin-order.component';
+import { StompRService } from '@stomp/ng2-stompjs';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AdminOrderComponent } from './components/admin/admin-order/admin-order.
       useClass: TokenInterceptor,
       multi: true,
     },
+    StompRService
   ],
   bootstrap: [
     AppComponent
